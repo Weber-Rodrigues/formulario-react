@@ -54,6 +54,11 @@ function SuperForm() {
   function handleSubmit(event) {
     event.preventDefault();
 
+    if (!sector) {
+      alert("Selecione um setor");
+      return;
+    }
+
     for (const prop in form) {
       if (!form[prop]) {
         alert("Preencha todos os dados!");
