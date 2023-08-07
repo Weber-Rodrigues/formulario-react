@@ -32,19 +32,45 @@ const defaultForm = {
 function SuperForm() {
   const [success, setSuccess] = useState("");
   const [form, setForm] = useState({ ...defaultForm });
-  const handleSelectForm = (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
-  };
+  const [sector, setSector] = useState({ id: 0, name: "" });
 
-  const handleSubmit = (event) => {
+  // alterando os dados dinâmicamente
+  function handleSelectForm(event) {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  }
+
+  function handleChangeSelect(event) {
+    const currentSelectedSector = allSectors.find(
+      (item) => item.id === parseInt(event.target.value)
+    );
+
+    setSector({
+      id: currentSelectedSector.id,
+      name: currentSelectedSector.name,
+    });
+  }
+
+  // submit - enviando dados
+  function handleSubmit(event) {
     event.preventDefault();
 
-    console.log(form);
-  };
+    for (const prop in form) {
+      if (!form[prop]) {
+        alert("Preencha todos os dados!");
+        return;
+      }
+      console.log(form[prop]);
+    }
 
-  const handleClear = () => {
+    setSuccess(true);
+
+    console.log(form);
+  }
+
+  // Limpar formulário
+  function handleClear() {
     setForm({ ...defaultForm });
-  };
+  }
 
   return (
     <main>
@@ -110,8 +136,17 @@ function SuperForm() {
 
               <div className="container-input">
                 <label htmlFor="sector">Setor</label>
-                <select id="sector">
+                <select
+                  id="sector"
+                  value={sector.id}
+                  onChange={handleChangeSelect}
+                >
                   <option value="">Selecione um setor</option>
+                  {allSectors.map((sector) => (
+                    <option key={sector.id} value={sector.id}>
+                      {sector.name}
+                    </option>
+                  ))}
                 </select>
               </div>
 
