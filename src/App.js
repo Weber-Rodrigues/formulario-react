@@ -184,7 +184,7 @@ function SuperForm() {
           </>
         ) : (
           <>
-            <h1>Parabéns Daniel!</h1>
+            <h1>Parabéns {form.name}!</h1>
             <p>
               Obrigado por enviar sua inscrição para o nosso programa de
               aceleração de <b>startups</b>! Estamos entusiasmados em ter
